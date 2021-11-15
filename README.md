@@ -30,7 +30,7 @@ security:
 And finally, the rs.initiate() will create settings for the Replication Set based on information it can see. If you set up MongoDB in a container like me, the name (which is what it expects its connection strings to be) was randomized (not the address I use to connect to it). So I had to alter the name using the following commands as an admin:
 > cfg = rs.conf()
 
-> cfg.members[#].name = "<enter-public-address>"
+> cfg.members[#].name = "ENTER-PUBLIC-ADDRESS"
 
 > rs.reconfig(cfg)
 
