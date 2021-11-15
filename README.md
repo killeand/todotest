@@ -17,18 +17,21 @@ Then you need to enter into the mongod interface as an administrator and execute
 > rs.initiate()
 
 If you have enabled security features, you also need to generate a keyfile that is shared between each node in the replication set:
-> openssl rand -base64 756 > <path-to-keyfile>
-> chmod 400 <path-to-keyfile>
+> openssl rand -base64 756 > PATH-TO-KEYFILE
+
+> chmod 400 PATH-TO-KEYFILE
 
 You can then change your security settings to point to the keyfile:
 ```
 security:
     authorization: "enabled"
-    keyFile: <path-to-keyfile>
+    keyFile: PATH-TO-KEYFILE
 ```
 And finally, the rs.initiate() will create settings for the Replication Set based on information it can see. If you set up MongoDB in a container like me, the name (which is what it expects its connection strings to be) was randomized (not the address I use to connect to it). So I had to alter the name using the following commands as an admin:
 > cfg = rs.conf()
+
 > cfg.members[#].name = "<enter-public-address>"
+
 > rs.reconfig(cfg)
 
 # settings.json
